@@ -10,7 +10,6 @@ class ChatUi extends Component {
   }
   msgBoxRef = {}
   handleLogout = async () => {
-    //alert("logout")
     await this.props.logout()
     this.props.authStateChanged()
   }
@@ -59,14 +58,14 @@ class ChatUi extends Component {
 
     return (
       <div className="row" style={{width: '100vw'}}>
-        <div className="col side-panel">
+        <div className="col-md-3  side-panel">
           <SidePanel activeChat={this.props.activeChat}
                      onUserClick={this.handelUserClick}
                      onLogout={this.handleLogout}
                      users={this.props.usersList}
                      username={this.props.currentUser}/>
         </div>
-        <div className="col-9" style={{'backgroundColor': '#eee'}}>
+        <div className="col-md-9" style={{'backgroundColor': '#eee'}}>
           {this.props.activeChat !== '' ?
             <MessagesArea messages={this.props.messages}
                           activeChat={this.props.activeChat}

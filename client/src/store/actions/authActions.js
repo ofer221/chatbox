@@ -1,5 +1,4 @@
 import io from 'socket.io-client'
-
 import *as actionTypes from '../actionTypes'
 import * as ServerApi from '../../serverApi/serverApi'
 import * as uiActions from './uiActions'
@@ -24,6 +23,7 @@ export const logOut = () => {
     localStorage.removeItem('token')
   }
 }
+
 export const signUp = (username, password) => {
   return dispatch => {
     dispatch(uiActions.startLoading())
@@ -48,6 +48,7 @@ export const signUp = (username, password) => {
       })
   }
 }
+
 export const login = (username, password) => {
   return async dispatch => {
     try {
@@ -126,7 +127,8 @@ export const autoLogin = (token) => {
 
 const SocketConnection=(loginData,updateUsers,setuser,handleMessage)=>{
 
-  const socket = io(window.location.origin)
+const socket = io(window.location.origin)
+  //const socket = io("http://localhost:5000")
   setuser(socket)
 
 

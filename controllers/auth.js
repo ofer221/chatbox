@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const redisClient = require('../lib/redis')
 const dbFunctions = require('../lib/dbFunctions')
 exports.signup = async (req, res, next) => {
   const username = req.body.name
@@ -15,10 +14,7 @@ exports.signup = async (req, res, next) => {
     }
     if (userExist === 0) {
       await dbFunctions.addUser(username, hashedPassword)
-      // await redisClient.hmset(username, [
-      //   'username', username,
-      //   'password', hashedPassword,
-      // ])
+
       res.status(201).json({message: 'User created', username: username})
     }
   } catch (err) {
@@ -49,9 +45,7 @@ exports.login = async (req, res, next) => {
       username: username
     }, 'secretstring', {expiresIn: '1h'})
     const users = await dbFunctions.addOnlineUser(username)
-    // await redisClient.sadd('users', username)
-    // let users = await redisClient.smembers('users')
-    // await redisClient.publish('users', JSON.stringify(users))
+
     res.status(200).json({token: token, username: username, users: users})
   } catch (err) {
     if (!err.statusCode) {
@@ -83,10 +77,7 @@ exports.autoLogin = async (req, res, next) => {
       error.statusCode = 401
       throw error
     }
-   const users = dbFunctions.addOnlineUser(decodedToken.username)
-    // await redisClient.sadd('users', decodedToken.username)
-    // let users = await redisClient.smembers('users')
-    // await redisClient.publish('users', JSON.stringify(users))
+    const users = dbFunctions.addOnlineUser(decodedToken.username)
     res.status(200).json({username: decodedToken.username, users: users})
   } catch (err) {
     next(err)

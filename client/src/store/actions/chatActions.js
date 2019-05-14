@@ -4,9 +4,13 @@ import store from '../store'
 
 export const updateUsers = users => {
   let usersArr =[]
-   usersArr = users.map((name, index) => {
+  if(users){
+
+    usersArr = users.map((name, index) => {
       return {username: name, pending: 0}
-  })
+    })
+  }
+
 
   return {
     type: actionTypes.SET_USERS,

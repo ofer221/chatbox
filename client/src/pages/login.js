@@ -11,11 +11,7 @@ class Login extends Component {
   }
 
   toggleLogin = () => {
-    // this.setState({isSignup: !this.state.isSignup})
     this.props.setSignup(!this.props.isSignup)
-    // this.setState((prevState) => {
-    //   return {isSignup: !prevState.isSignup}
-    // })
   }
 
   handleChange = (event) => {

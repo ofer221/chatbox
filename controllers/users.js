@@ -1,4 +1,3 @@
-const redisClient = require('../lib/redis')
 const dbFunctions = require('../lib/dbFunctions')
 
 exports.getUsers = async (req, res, next) => {

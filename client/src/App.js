@@ -12,18 +12,14 @@ class App extends Component {
     auth: false
   }
   onAuthStateChanged = () => {
-    // alert(this.props.isAuth)
     if (this.props.isAuth) {
-      //  this.props.setAuth(true)
       this.props.history.push('/')
     } else {
       this.props.history.push('/login')
-      //  this.props.setAuth(false)
     }
   }
 
   componentDidMount () {
-    //localStorage.removeItem('token');
     const token = localStorage.getItem('token')
     if (token) {
       this.props.autoLogin(token).then(() => {
@@ -43,15 +39,6 @@ class App extends Component {
         </Switch>
     )
   }
-// component={this.props.isAuth ? ChatUi : null}/>
-  // render(){
-  //   return (
-  //     <div className="App">
-  //       <Login />
-  //
-  //     </div>
-  //   );
-  // }
 
 }
 

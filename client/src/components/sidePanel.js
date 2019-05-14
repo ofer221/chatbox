@@ -4,13 +4,15 @@ const SidePanel = (props) => (
   <div className="container">
     <div className="row">
       <div className="col">
-        <p className={'side-logo text-center mt-4'}><i className="fas fa-cube"></i> ChatBox</p>
+        <p className={'side-logo text-center mt-4'}><i
+          className="fas fa-cube"></i> ChatBox</p>
         <div className="dropdown">
           <button className="dropbtn"><i className="fas fa-user mr-3"></i>{props.username}<i
             className="fas fa-angle-down ml-3"></i>
           </button>
           <div className="dropdown-content">
-            <div style={{cursor: 'pointer'}} onClick={props.onLogout}>Log Out<i
+            <div style={{cursor: 'pointer'}}
+                 onClick={props.onLogout}>Log Out<i
               className="ml-3 fas fa-sign-out-alt"></i></div>
           </div>
         </div>
@@ -24,7 +26,8 @@ const SidePanel = (props) => (
            onClick={()=>props.onUserClick(user.username)}
            key={index}>{props.activeChat===user.username? <i className="fas fa-user-ninja mr-3 pt-1 mb-3"></i>:
         <i className="far fa-user mr-3 pt-1 mb-3 my-auto"></i>}{user.username}
-        { user.pending !==0?<label  className="badge badge-pill badge-warning ml-auto">{user.pending}</label >:null} </div>)}
+        { user.pending !==0?
+          <label  className="badge badge-pill badge-warning ml-auto">{user.pending}</label >:null} </div>)}
     )}
 
   </div>

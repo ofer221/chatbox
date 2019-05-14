@@ -1,9 +1,10 @@
 
- let baseUrl = window.location.origin
+let baseUrl = window.location.origin
+ //let baseUrl = "http://localhost:5000"
 
   export const get = (url) => {
     return fetch(baseUrl + url, {method: 'GET'})
-     // .then(res => res.json())
+
   }
     export const put = (url, body) => {
     return fetch(baseUrl + url, {
@@ -26,15 +27,6 @@
     })
   }
 
- export const deleteBody = (url, body) => {
-    return fetch(baseUrl + url, {
-      method: 'DELETE',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-  }
 
 
 
