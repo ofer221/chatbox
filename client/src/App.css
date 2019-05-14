@@ -1,0 +1,130 @@
+.App {
+    text-align: center;
+}
+
+.center-form {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 50%;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 40px;
+}
+
+.spinner {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.side-panel {
+    border: 1px solid black;
+    height: 100vh;
+    background-color: #4c3c4c
+}
+
+.side-logo {
+    color: white;
+    font-size: 30px
+}
+.home-logo {
+user-select: none;
+    font-size: 50px
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: #cef1e7;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(241, 241, 241, 0.34);
+    border-radius: 3px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+    z-index: 1;
+}
+
+.dropdown-content div {
+    color: black;
+    background-color: rgba(241, 241, 241, 0.28);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content div:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: rgba(75, 168, 78, 0.31);
+}
+
+.user-list {
+    list-style: none;
+}
+
+.user-list-item {
+    font-size: 20px;
+    cursor: pointer;
+    color: #688341;
+}
+
+.user-list-item:hover {
+    color: orangered;
+
+}
+
+.user-list-item.active {
+    color: orangered;
+
+}
+
+.chat-header {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.01);
+}
+.chat-area{
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.01);
+    overflow-y: auto;
+}
+.chat-write{
+
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.chat-write input{
+
+}
