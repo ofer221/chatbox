@@ -77,7 +77,7 @@ exports.autoLogin = async (req, res, next) => {
       error.statusCode = 401
       throw error
     }
-    const users = dbFunctions.addOnlineUser(decodedToken.username)
+    const users = await dbFunctions.addOnlineUser(decodedToken.username)
     res.status(200).json({username: decodedToken.username, users: users})
   } catch (err) {
     next(err)
