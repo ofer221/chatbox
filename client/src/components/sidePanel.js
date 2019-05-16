@@ -21,13 +21,15 @@ const SidePanel = (props) => (
     <div className="row">
       <p className={'mt-3 font-weight-bold text-white text-muted'}>Online users list</p>
     </div>
-    {props.users.map((user, index) =>
-      {return(props.username!==user.username)&&(<div className={props.activeChat === user.username?"active row user-list-item ml-1":"row user-list-item ml-1"}
-           onClick={()=>props.onUserClick(user.username)}
-           key={index}>{props.activeChat===user.username? <i className="fas fa-user-ninja mr-3 pt-1 mb-3"></i>:
-        <i className="far fa-user mr-3 pt-1 mb-3 my-auto"></i>}{user.username}
-        { user.pending !==0?
-          <label  className="badge badge-pill badge-warning ml-auto">{user.pending}</label >:null} </div>)}
+    {props.users.map((user, index) => {
+        return (props.username !== user.username) && (<div
+          className={props.activeChat === user.username ? 'active row user-list-item ml-1 ' : 'row user-list-item ml-1 '}
+          onClick={() => props.onUserClick(user.username)}
+          key={index}>{props.activeChat === user.username ? <i className="fas fa-user-ninja mr-3 pt-1 mb-3 my-auto"></i> :
+          <i className="far fa-user mr-3 pt-1 mb-3 my-auto"></i>}{user.username}
+          {user.pending !== 0 ?
+            <label className="badge badge-pill badge-warning ml-auto">{user.pending}</label> : null} </div>)
+      }
     )}
 
   </div>

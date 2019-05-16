@@ -10,8 +10,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "pm2":"pm2 start ecosystem.config.js",
-    "stop-pm2":"pm2 stop ecosystem.config.js"
+    "pm2": "pm2 start ecosystem.config.js",
+    "stop-pm2": "pm2 stop ecosystem.config.js"
   },
   "author": "Ofer Elfassi",
   "license": "ISC",
@@ -25,6 +25,7 @@
     "prop-types": "^15.7.2",
     "redis": "^2.8.0",
     "socket.io": "^2.2.0",
-    "socket.io-redis": "^5.2.0"
+    "socket.io-redis": "^5.2.0",
+    "uuid": "^3.3.2"
   }
 }

@@ -3,7 +3,8 @@ import * as actionTypes from '../actionTypes'
 const initialState = {
   isLoading: false,
   isSignup:false,
-  loginError:""
+  loginError:"",
+  chatError:"",
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,9 @@ const reducer = (state = initialState, action) => {
   }
   else if (action.type === actionTypes.UI_SET_LOGIN_ERROR) {
     return setLoginError(state, action.error)
+  }
+  else if (action.type === actionTypes.UI_SET_CHAT_ERROR) {
+    return setChatError(state, action.error)
   }
   else {
     return state
@@ -47,6 +51,12 @@ function setLoginError (state, error) {
   return {
     ...state,
     loginError: error
+  }
+}
+function setChatError (state, error) {
+  return {
+    ...state,
+    chatError: error
   }
 }
 export default reducer

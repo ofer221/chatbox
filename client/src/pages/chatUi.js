@@ -55,9 +55,11 @@ class ChatUi extends Component {
   }
 
   render () {
-
+    if(!this.props.isAuth){
+      this.props.authStateChanged()
+    }
     return (
-      <div className="row" style={{width: '100vw'}}>
+      <div className="row chatUi" style={{width: '100vw'}}>
         <div className="col-md-3  side-panel">
           <SidePanel activeChat={this.props.activeChat}
                      onUserClick={this.handelUserClick}
@@ -86,6 +88,7 @@ class ChatUi extends Component {
 
 const mapStateToProps = state => {
   return {
+    isAuth:state.auth.isAuth,
     usersList: state.chat.users,
     currentUser: state.auth.username,
     messages: state.chat.messages,

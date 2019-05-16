@@ -78,6 +78,7 @@ exports.autoLogin = async (req, res, next) => {
       throw error
     }
     const users = await dbFunctions.addOnlineUser(decodedToken.username)
+
     res.status(200).json({username: decodedToken.username, users: users})
   } catch (err) {
     next(err)

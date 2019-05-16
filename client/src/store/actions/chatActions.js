@@ -1,41 +1,67 @@
 import *as actionTypes from '../actionTypes'
-import * as ServerApi from '../../serverApi/serverApi'
-import store from '../store'
+import * as restApi from '../../serverApi/restApi'
+import {setAuth} from './authActions'
 
 export const updateUsers = users => {
-  let usersArr =[]
-  if(users){
-
+  let usersArr = []
+  if (users.length !== 0) {
     usersArr = users.map((name, index) => {
       return {username: name, pending: 0}
     })
   }
-
-
   return {
     type: actionTypes.SET_USERS,
     users: usersArr,
   }
 }
 export const sendMessage = message => {
-  const {socket} = store.getState().auth
-  message.time = Date.now().toString()
-  let messages = JSON.parse(localStorage.getItem(message.to))
-  if (messages) {
-    messages.push(message)
-  } else {
-    messages = [message]
+  return (dispatch,getState) =>{
+    const {socket} = getState().auth
+    message.time = Date.now().toString()
+    let messages = JSON.parse(localStorage.getItem(message.to))
+    if (messages) {
+      messages.push(message)
+    } else {
+      messages = [message]
 
+    }
+    localStorage.setItem(message.to, JSON.stringify(messages))
+    socket.emit('msg', message)
+    dispatch(addMessage(message))
   }
-  localStorage.setItem(message.to, JSON.stringify(messages))
-  socket.emit('msg', message)
+
+}
+export const addMessage = (message) =>{
   return {
     type: actionTypes.SEND_MESSAGE,
     message: message,
   }
 }
 export const getMessages = (from) => {
-  let messages = JSON.parse(localStorage.getItem(from))
+  return async (dispatch,getState) => {
+    try {
+      const {username,token} = getState().auth
+      let messages = JSON.parse(localStorage.getItem(from))
+      if (!messages) {
+        messages = await restApi.getMessages(username,from,token)
+        localStorage.setItem(from, JSON.stringify(messages))
+      }
+      dispatch(fetchMessages(messages))
+    } catch (err) {
+      if (err.message === 'unauthorized'){
+        dispatch(setAuth({
+          authState: false,
+          username: '',
+          token: '',
+          socket: {}
+        }))
+      }
+      console.log(err)
+    }
+
+  }
+}
+export const fetchMessages = (messages) => {
   return {
     type: actionTypes.GET_MESSAGES,
     messages: messages || []
@@ -49,8 +75,8 @@ export const setActiveChat = (activeChat) => {
   }
 }
 export const handleNewMessage = (from) => {
-  return dispatch => {
-    const {activeChat} = store.getState().chat
+  return (dispatch,getState) => {
+    const {activeChat} = getState().chat
     if (activeChat === from) {
       dispatch(getMessages(from))
     } else {
@@ -65,17 +91,7 @@ export const setPendingMessage = (from, pending) => {
     pending: pending
   }
 }
-export const getUsers = (username, password) => {
-  return dispatch => {
-    ServerApi.get('/users/userslist').then(res => {
-      if (res.length !== 0) {
-        dispatch(updateUsers(res))
-      }
-    })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
+
+
 
 

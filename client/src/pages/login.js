@@ -24,9 +24,9 @@ class Login extends Component {
     const {username,password} = this.state
 
     if (this.props.isSignup) {
-     if( this.validateForm(false)){
-       this.props.signup(username,password)
-     }
+      if( this.validateForm(false)){
+        this.props.signup(username,password)
+      }
     }
     else {
       if( this.validateForm(true)){
@@ -44,17 +44,17 @@ class Login extends Component {
     if(password==="" ||  username === ""){
       error = "All fields are required"
     }
-     else if (!isLogin && rePassword!==password){
-        error="The two passwords do not match"
+    else if (!isLogin && rePassword!==password){
+      error="The two passwords do not match"
     }
 
-     if(error!==""){
+    if(error!==""){
       this.props.setLoginError(error)
-       return false
+      return false
     }
     else {
-       return true
-     }
+      return true
+    }
   }
 
   render () {

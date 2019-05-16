@@ -23,3 +23,9 @@ export const setLoginError = error => {
     error:error
   };
 };
+export const setChatError = error => {
+  return {
+    type: actionTypes.UI_SET_CHAT_ERROR,
+    error:error
+  };
+};
