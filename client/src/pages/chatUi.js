@@ -119,12 +119,12 @@ class ChatUi extends Component {
       else {
         displayComponent = this.renderMessagesArea('12')
       }
-      return <div className="row chatUi" style={{width: '100vw'}}>
+      return <div className="row chatUi" style={{width: '100vw',padding:0,margin:0}}>
         {displayComponent}
       </div>
     }
     else {
-      return <div className="row chatUi" style={{width: '100vw'}}>
+      return <div className="row " style={{width: '100%',padding:0,margin:0}}>
         {this.rendeeSidePanel('4')}{this.renderMessagesArea('8')}
       </div>
     }
@@ -135,7 +135,7 @@ class ChatUi extends Component {
       this.props.authStateChanged()
     }
     return (
-      <div className="row chatUi" style={{width: '100vw'}}>
+      <div className="row chatUi" style={{width: '100vw',padding:0,margin:0}}>
         {this.responsive()}
 
       </div>

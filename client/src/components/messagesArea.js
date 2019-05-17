@@ -5,7 +5,7 @@ import Error from './error'
 
 const MessagesArea = (props) => (
   <div className="container chat-panel ">
-    <div className="row ml-2">
+    <div className="row mx-auto">
       <div className="col-12 mt-3 chat-header">
 
         <p className={'mt-3'}>Chatting with
@@ -17,7 +17,7 @@ const MessagesArea = (props) => (
 
 
     </div>
-    <div className="row ml-2">
+    <div className="row mx-auto">
       <div className="col-12 mt-3 chat-area " ref={props.msgBoxRef}>
         {props.messages.map((message, index) =>
           <Message key={index}
@@ -29,7 +29,7 @@ const MessagesArea = (props) => (
 
       </div>
     </div>
-    <div className="row ml-2">
+    <div className="row mx-auto">
       <div className="input-group mb-3 mt-5">
         <input type="text"
                className="form-control"
