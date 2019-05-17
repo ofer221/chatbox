@@ -89,17 +89,17 @@ class Login extends Component {
                          type="password"
                          onChange={this.handleChange}/>
                 </div>
-                {this.props.isSignup ?
-                  <div className="form-group input-group">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
-                    </div>
-                    <input name={'rePassword'}
-                           className="form-control"
-                           placeholder="Repeat password"
-                           type="password"
-                           onChange={this.handleChange}/>
-                  </div> : null
+                {this.props.isSignup &&
+                <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
+                  </div>
+                  <input name={'rePassword'}
+                         className="form-control"
+                         placeholder="Repeat password"
+                         type="password"
+                         onChange={this.handleChange}/>
+                </div>
                 }
 
                 <div className="form-group">

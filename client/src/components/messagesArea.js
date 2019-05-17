@@ -2,14 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Message from './message'
 import Error from './error'
+
 const MessagesArea = (props) => (
-  <div className="container chat-panel">
-    <div className="row ">
+  <div className="container chat-panel ">
+    <div className="row ml-2">
       <div className="col-12 mt-3 chat-header">
-        <p className={'mt-3'}>Chatting with <i className="fas fa-long-arrow-alt-right mr-2"></i>{props.activeChat}</p>
+
+        <p className={'mt-3'}>Chatting with
+          <i className="fas fa-long-arrow-alt-right mr-2"></i>{props.activeChat}
+          {props.isMobile && <i className="fas fa-redo float-right"
+                                style={{cursor: 'pointer'}}
+                                onClick={props.onBackClick}></i>}</p>
       </div>
+
+
     </div>
-    <div className="row ">
+    <div className="row ml-2">
       <div className="col-12 mt-3 chat-area " ref={props.msgBoxRef}>
         {props.messages.map((message, index) =>
           <Message key={index}
@@ -21,7 +29,7 @@ const MessagesArea = (props) => (
 
       </div>
     </div>
-    <div className="row ">
+    <div className="row ml-2">
       <div className="input-group mb-3 mt-5">
         <input type="text"
                className="form-control"
@@ -52,7 +60,9 @@ MessagesArea.propTypes = {
   messages: PropTypes.array,
   currentUser: PropTypes.string,
   inputText: PropTypes.string,
-  msgBoxRef: PropTypes.func
+  msgBoxRef: PropTypes.func,
+  onBackClick: PropTypes.func,
+  isMobile: PropTypes.bool
 }
 
 export default MessagesArea

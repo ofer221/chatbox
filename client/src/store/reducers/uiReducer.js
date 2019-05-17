@@ -5,6 +5,7 @@ const initialState = {
   isSignup:false,
   loginError:"",
   chatError:"",
+  isMobile:false
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,9 @@ const reducer = (state = initialState, action) => {
   }
   else if (action.type === actionTypes.UI_SET_CHAT_ERROR) {
     return setChatError(state, action.error)
+  }
+  else if (action.type === actionTypes.SET_MOBILE_VIEW) {
+    return setMobileView(state, action.isMobile)
   }
   else {
     return state
@@ -57,6 +61,13 @@ function setChatError (state, error) {
   return {
     ...state,
     chatError: error
+  }
+}
+
+function setMobileView (state, isMobile) {
+  return {
+    ...state,
+    isMobile: isMobile
   }
 }
 export default reducer

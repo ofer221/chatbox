@@ -5,9 +5,17 @@ import { connect } from 'react-redux'
 import * as actions from '../store/actions'
 
 class ChatUi extends Component {
-  state = {
-    messageInput: ''
+  constructor (props) {
+    super(props)
+    this.state = {
+      messageInput: '',
+      mobileActiveChat: false,
+      screenWidth: 0,
+      screenHeight: 0
+    }
+
   }
+
   msgBoxRef = {}
   handleLogout = async () => {
     await this.props.logout()
@@ -47,38 +55,89 @@ class ChatUi extends Component {
       })
     }
   }
+  handleBackClick = () =>{
+    this.props.setActiveChat('')
+  }
   getMsgBoxRef = (node) => {
     this.msgBoxRef = node
   }
   componentDidUpdate = () => {
-    this.msgBoxRef.scrollTop = this.msgBoxRef.scrollHeight
+    if(this.msgBoxRef){
+      this.msgBoxRef.scrollTop = this.msgBoxRef.scrollHeight
+    }
+  }
+  componentDidMount = () => {
+    this.updateWindowDimensions()
+    window.addEventListener('resize', this.updateWindowDimensions)
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.updateWindowDimensions)
+  }
+  updateWindowDimensions = () => {
+    console.log(window.innerWidth)
+    if (window.innerWidth > 610) {
+      this.props.setMobileView(false)
+    } else {
+      this.props.setMobileView(true)
+    }
+    // this.setState((prevState) => {
+    //   return {...prevState, width: window.innerWidth, height: window.innerHeight}
+    // })
+  }
+  rendeeSidePanel = (cols) => {
+    return (<div className={`col-${cols} side-panel`}>
+      <SidePanel activeChat={this.props.activeChat}
+                 onUserClick={this.handelUserClick}
+                 onLogout={this.handleLogout}
+                 users={this.props.usersList}
+                 username={this.props.currentUser}
+                 isMobile={this.props.isMobile}/>
+    </div>)
+  }
+  renderMessagesArea = (cols) => {
+    return (<div className={`col-${cols}`} style={{'backgroundColor': '#eee'}}>
+      {this.props.activeChat !== '' &&
+      <MessagesArea messages={this.props.messages}
+                    activeChat={this.props.activeChat}
+                    onMessageChanged={this.handleMessageChange}
+                    onSendMessage={this.handleSendMessage}
+                    currentUser={this.props.currentUser}
+                    inputText={this.state.messageInput}
+                    msgBoxRef={this.getMsgBoxRef}
+                    isMobile={this.props.isMobile}
+                    onBackClick={this.handleBackClick}
+      />}
+    </div>)
+  }
+  responsive = () => {
+    let displayComponent
+    if (this.props.isMobile) {
+      if (this.props.activeChat === '') {
+        displayComponent = this.rendeeSidePanel('12')
+      }
+      else {
+        displayComponent = this.renderMessagesArea('12')
+      }
+      return <div className="row chatUi" style={{width: '100vw'}}>
+        {displayComponent}
+      </div>
+    }
+    else {
+      return <div className="row chatUi" style={{width: '100vw'}}>
+        {this.rendeeSidePanel('4')}{this.renderMessagesArea('8')}
+      </div>
+    }
   }
 
   render () {
-    if(!this.props.isAuth){
+    if (!this.props.isAuth) {
       this.props.authStateChanged()
     }
     return (
       <div className="row chatUi" style={{width: '100vw'}}>
-        <div className="col-md-3  side-panel">
-          <SidePanel activeChat={this.props.activeChat}
-                     onUserClick={this.handelUserClick}
-                     onLogout={this.handleLogout}
-                     users={this.props.usersList}
-                     username={this.props.currentUser}/>
-        </div>
-        <div className="col-md-9" style={{'backgroundColor': '#eee'}}>
-          {this.props.activeChat !== '' ?
-            <MessagesArea messages={this.props.messages}
-                          activeChat={this.props.activeChat}
-                          onMessageChanged={this.handleMessageChange}
-                          onSendMessage={this.handleSendMessage}
-                          currentUser={this.props.currentUser}
-                          inputText={this.state.messageInput}
-                          msgBoxRef={this.getMsgBoxRef}
-            /> : null}
+        {this.responsive()}
 
-        </div>
       </div>
 
     )
@@ -88,11 +147,12 @@ class ChatUi extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuth:state.auth.isAuth,
+    isAuth: state.auth.isAuth,
     usersList: state.chat.users,
     currentUser: state.auth.username,
     messages: state.chat.messages,
-    activeChat: state.chat.activeChat
+    activeChat: state.chat.activeChat,
+    isMobile: state.ui.isMobile
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -101,7 +161,8 @@ const mapDispatchToProps = dispatch => {
     sendMessage: (message) => dispatch(actions.sendMessage(message)),
     getMessages: (from) => dispatch(actions.getMessages(from)),
     setActiveChat: (activeChat) => dispatch(actions.setActiveChat(activeChat)),
-    setPendingMessage: (from, pending) => dispatch(actions.setPendingMessage(from, pending))
+    setPendingMessage: (from, pending) => dispatch(actions.setPendingMessage(from, pending)),
+    setMobileView: (isMobile) => dispatch(actions.setMobileView(isMobile))
   }
 }
 

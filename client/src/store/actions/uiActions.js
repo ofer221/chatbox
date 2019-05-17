@@ -18,9 +18,16 @@ export const setSignup = isSignup => {
   };
 };
 export const setLoginError = error => {
+
   return {
     type: actionTypes.UI_SET_LOGIN_ERROR,
     error:error
+  };
+};
+export const setMobileView = isMobile => {
+  return {
+    type: actionTypes.SET_MOBILE_VIEW,
+    isMobile:isMobile
   };
 };
 export const setChatError = error => {
